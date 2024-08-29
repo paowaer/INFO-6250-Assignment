@@ -57,3 +57,4 @@ From this directory, at the command line:
 
 Then you're done! At some point your code will be reviewed merged into main. This is where our work is different than a "real" job: For most employers you are usually responsible for merging your code after it is approved, but for this class the TA/instructor will merge it after approval.
 
+## INCOMPATIBLE
