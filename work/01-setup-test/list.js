@@ -1,17 +1,18 @@
-const path = require('path');
+const path = require("path");
 
 const people = `
 Name           |  NEUID   | Email                     | Slack handle           | github username
-Brett Ritter   | ???      | b.ritter@northeastern.edu | @Brett Ritter (He/Him) | swiftone
+Junfeng Ouyang   |002839764      | ouyang.jun@northeastern.edu | @Ian Ou (He/Him) | paowaer
 
-`.split('\n') // convert to array of lines
-.filter( line => !!line.replace(/\s/g,'' )); // Remove empty lines
+`
+  .split("\n") // convert to array of lines
+  .filter((line) => !!line.replace(/\s/g, "")); // Remove empty lines
 
 if (require.main === module) {
   // Run if we are being run directly
 
   // List the people
-  for ( person of people ) {
+  for (person of people) {
     console.log(person);
   }
 }
