@@ -1,0 +1,24 @@
+.animals {
+  border: 2px solid #3498db;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 300px;
+  background-color: #ffffff;
+}
+
+.animals-cats {
+  text-align: center;
+  list-style-type: "\1F431";
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+}
+
+.animals-cats a {
+  text-decoration: none;
+  color: #2980b9;
+}
+
+.animals-cats a:hover {
+  color: #e74c3c;
+}
