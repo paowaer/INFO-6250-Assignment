@@ -1,17 +1,11 @@
-// This object has methods that produce HTML
-// - These methods are passed data used to produce the HTML
-// - In this case, they are passed the model
-
 const chatWeb = {
-  // chatPage() returns the HTML for the page
-  // it calls the other methods to generate the HTML for different sections
-  chatPage: function(chat) {
-    // Fill in/modify anything below!
+  chatPage: function (chat) {
     return `
       <!doctype html>
       <html>
         <head>
           <title>Chat</title>
+          <link rel="stylesheet" href="chat.css">
         </head>
         <body>
           <div id="chat-app">
@@ -24,32 +18,58 @@ const chatWeb = {
   `;
   },
 
-  getMessageList: function(chat) {
-    return `<ol class="messages">` +
-      // Fill in
-      // Generate the HTML for the list of messages
-      `</ol>`;
+  getMessageList: function (chat) {
+    return (
+      `<ol class="messages">` +
+      chat.messages
+        .map((message) => {
+          const messageClass =
+            message.sender === "Amit" ? "message-left" : "message-right";
+          return `
+            <li>
+              <div class="message ${messageClass}"> <!-- 根据发送者显示在左侧或右侧 -->
+                <div class="sender-info">
+                  <img class="avatar" alt="avatar of ${
+                    message.sender
+                  }" src="images/avatar-${message.sender.toLowerCase()}.jpg"/>
+                  <span class="username">${message.sender}</span>
+                </div>
+                <p class="message-text">${message.text}</p>
+              </div>
+            </li>
+          `;
+        })
+        .join("") +
+      `</ol>`
+    );
   },
-  getUserList: function(chat) {
-    // This is a bit of a complex structure
-    // Lookup Object.values() in MDN
-    // .map() generates a new array based on calling the callback
-    // on each element of the array
-    // So this .map() converts the user names to an array of HTML
-    // and .join() converts the array of HTML into a single HTML string
-    return `<ul class="users">` +
-    Object.values(chat.users).map( user => `
+  getUserList: function (chat) {
+    return (
+      `<ul class="users">` +
+      Object.values(chat.users)
+        .map(
+          (user) => `
       <li>
         <div class="user">
           <span class="username">${user}</span>
         </div>
       </li>
-    `).join('') +
-    `</ul>`;
+    `
+        )
+        .join("") +
+      `</ul>`
+    );
   },
-  getOutgoingSection: function() {
-    // Fill in
-    // Generate the HTML for a form to send a message
-  }
+  getOutgoingSection: function (chat) {
+    return `
+    <div class="outgoing">
+      <form action="/chat" method="POST">
+        <input type="hidden" name="username" value="Amit"/>
+        <label for="to-send">Message:<input id="to-send" class="to-send" name="text" value=""/></label>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    `;
+  },
 };
 module.exports = chatWeb;
