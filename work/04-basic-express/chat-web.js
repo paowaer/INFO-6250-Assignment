@@ -27,7 +27,7 @@ const chatWeb = {
             message.sender === "Amit" ? "message-left" : "message-right";
           return `
             <li>
-              <div class="message ${messageClass}"> <!-- 根据发送者显示在左侧或右侧 -->
+              <div class="message ${messageClass}">
                 <div class="sender-info">
                   <img class="avatar" alt="avatar of ${
                     message.sender
