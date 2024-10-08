@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "04-basic-express",
+  "description": "Chat-web application",
+  "version": "1.0.0",
+  "main": "chat-web.js",
+  "author": "Ian Ou",
+  "license": "ISC"
+}
