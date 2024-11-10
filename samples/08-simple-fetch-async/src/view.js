@@ -10,8 +10,7 @@ function generateCatCardsHtml(cats) {
   const listHtml = Object.keys(cats).map( name => {
     return `
       <li class="card">
-          ${generateCatCardHtml(cats[name])}
-        </button>
+        ${generateCatCardHtml(cats[name])}
       </li>
     `;
   }).join('');

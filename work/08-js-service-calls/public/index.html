@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Your Word</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript" defer src="bundle.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="error-message"></div>
+
+      <div class="user-content" id="user-login-form">
+        <h1>Login</h1>
+        <label for="username-input"
+          >Username:
+          <input
+            type="text"
+            id="username-input"
+            class="user-input"
+            name="username"
+            placeholder="Please enter your username"
+          />
+        </label>
+        <button id="login-button" class="user-button">Login</button>
+      </div>
+
+      <div class="hidden user-content" id="user-data-content">
+        <div class="current-storedword"></div>
+
+        <div class="update-storedword">
+          <label for="user-input"
+            >New Stored Word:
+            <input
+              type="text"
+              id="userword-input"
+              name="newWord"
+              placeholder="Enter a new word"
+            />
+          </label>
+          <button id="update-word-button" class="user-button">Submit</button>
+        </div>
+
+        <button id="logout-button" class="user-button">Logout</button>
+      </div>
+    </div>
+  </body>
+</html>
