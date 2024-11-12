@@ -1,0 +1,15 @@
+# Summary - Imports/Exports
+
+- Components are export/imported
+- A CSS file can be imported
+- An image path can be imported
+    - Absolute/Relative is significant
+    - Absolute from `/public` for stable filename
+- All local file imports need an **explicit** path
+
+**Requirements for this course:**
+- CSS classes: semantic `kebab-case` or BEM
+- No styled-components, CSS Modules, CSS-in-JS 
+- CSS files relate to matching Component
+
+

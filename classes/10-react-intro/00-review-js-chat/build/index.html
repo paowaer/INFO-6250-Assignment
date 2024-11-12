@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Prez</title>
+
+    <meta name="description" content="-- DESCRIPTION HERE --">
+    <meta name="author" content="swiftone">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="css/highlight/styles/zenburn.css" id="highlight-theme">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <link rel="stylesheet" href="css/custom.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides"><section id="chapter-key-lessons" class="chapter">
+<section id="key-lessons-overview" class="slide" data-has-notes="false">
+<h1>JS-Chat</h1><ul>
+<li>RESTful Service-based backend</li>
+<li>&quot;Vanilla JS&quot; Single Page Application</li>
+<li>Services won&#39;t change for React/Final<ul>
+<li>You now know fundamentals of services</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="key-lessons-pain-points" class="slide" data-has-notes="false">
+<h1>Pain Points to Learn from</h1><ul>
+<li>Defining and transferring state<ul>
+<li>Backend vs payloads vs frontend(s)</li>
+</ul>
+</li>
+<li>Polling<ul>
+<li>What service to poll?</li>
+<li>What to do with results?</li>
+</ul>
+</li>
+<li>Rendering<ul>
+<li>Scrolling</li>
+<li>Interruption</li>
+</ul>
+</li>
+<li>Estimation<ul>
+<li>Will not magically get better</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-state" class="chapter">
+<section id="state-overview" class="slide" data-has-notes="false">
+<h1>State Complexity</h1><ul>
+<li>Every App benefits from thinking about state<ul>
+<li>Data Models</li>
+</ul>
+</li>
+<li>Apps have different needs!<ul>
+<li>Similar data, may be different states</li>
+</ul>
+</li>
+<li>Data sent may not be the same as data stored<ul>
+<li>Ex: Array of active users vs Object of users</li>
+<li>Client is only one user!</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="state-multiple-clients" class="slide" data-has-notes="false">
+<h1>Multiple Clients</h1><p>We wrote FE and BE for this app</p>
+<ul>
+<li>But many services have <em>multiple</em> clients!</li>
+<li>Service should be &quot;kind&quot; to clients<ul>
+<li>But clients can have different needs!</li>
+<li>Don&#39;t tightly couple service and client</li>
+</ul>
+</li>
+<li>We move to React for FE starting today<ul>
+<li>But services don&#39;t change!<ul>
+<li>Just a new client</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong> Service devs think in terms of <em>usable data</em></strong></p>
+<ul>
+<li>Not specific app consumer</li>
+</ul>
+</section>
+
+<section id="state-login" class="slide" data-has-notes="false">
+<h1>What to return on login?</h1><ul>
+<li>Check for existing session on login<ul>
+<li>What to return?</li>
+</ul>
+</li>
+<li>Logging in to create a session <ul>
+<li>What to return?</li>
+</ul>
+</li>
+</ul>
+<p><strong>Should you assume to send all the needed data?</strong></p>
+<ul>
+<li>Or should they need to make extra requests?</li>
+<li>More requests = extra delay</li>
+<li>Send all data = complex to add more services</li>
+</ul>
+<p><strong>Generally, better to separate login from data</strong></p>
+</section>
+
+<section id="state-users-vs-messages" class="slide" data-has-notes="false">
+<h1>Users vs Messages</h1><p>&quot;active users&quot; and &quot;messages&quot;</p>
+<ul>
+<li>1 service or 2 services?</li>
+</ul>
+<p>Answer is surprisingly nuanced</p>
+<ul>
+<li>Is this data coupled for all clients?<ul>
+<li>ALL clients?</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="state-more-services" class="slide" data-has-notes="false">
+<h1>Service Granularity</h1><p>More services (and more granular) good because</p>
+<ul>
+<li>More flexible for clients</li>
+<li>Easier to add changes over time<ul>
+<li>Ex: Pagination</li>
+</ul>
+</li>
+</ul>
+<p>More services (and more granular) bad because</p>
+<ul>
+<li>More network overhead</li>
+<li>More work if we always call them all anyway</li>
+</ul>
+</section>
+
+<section id="state-assumptions" class="slide" data-has-notes="false">
+<h1>Data Model Assumptions</h1><p>A service sends named, known fields</p>
+<ul>
+<li>Will it add fields in future?</li>
+<li>Services want to avoid version bump<ul>
+<li>Often add new object fields<ul>
+<li>New feature = <em>Minor</em> version</li>
+<li>Which means all clients get immediately<ul>
+<li>Write your clients safely!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="state-security" class="slide" data-has-notes="false">
+<h1>Security</h1><ul>
+<li>We didn&#39;t filter the message text<ul>
+<li>Vulnerable to injection attack!</li>
+<li>Hard to allowlist open text<ul>
+<li>Not limited like username/phone</li>
+</ul>
+</li>
+<li>HTML Entities are a mess <ul>
+<li><code>&lt;</code>, <code>&gt;</code>, and <code>&amp;</code> in particular</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="state-security-pro-con" class="slide" data-has-notes="false">
+<h1>Security Options for Plain Text</h1><ul>
+<li>Option 1: Ban entities<ul>
+<li>Works great for security</li>
+<li>Users may wish to use <code>&lt;</code>,<code>&gt;</code>, or <code>&amp;</code> in text</li>
+</ul>
+</li>
+<li>Option 2: Translate Entities when stored<ul>
+<li>Convert to <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code></li>
+<li>Data is stored safely</li>
+<li>Requires conversion to use outside of HTML</li>
+<li>Causes problems if reconverted (<code>&amp;amp;amp;</code>)</li>
+</ul>
+</li>
+<li>Option 3: Translate Entities on display<ul>
+<li>Data is stored unsafely!</li>
+<li>Everyone. Must. Remember. When. Using.</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-polling" class="chapter">
+<section id="polling-overview" class="slide" data-has-notes="false">
+<h1>Polling</h1><ul>
+<li>Surprise difficulty for many!</li>
+<li>What service do you poll?<ul>
+<li>What does it return?</li>
+<li>How does it know?</li>
+</ul>
+</li>
+<li>What do you do with results?</li>
+</ul>
+<p>Think about how a service dev would think</p>
+<ul>
+<li>WITHOUT a specific client</li>
+</ul>
+</section>
+
+<section id="polling-simple" class="slide" data-has-notes="false">
+<h1>Most Basic Option</h1><ul>
+<li>Poll service to get all messages<ul>
+<li>Always replace list of messages</li>
+<li>Rerender</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="polling-simple-pro-con" class="slide" data-has-notes="false">
+<h1>Basic Pro vs Cons</h1><p>Pro:</p>
+<ul>
+<li>Very simple to implement<ul>
+<li>Like a refresh button, but automatic</li>
+</ul>
+</li>
+<li>Already have &quot;get all messages/users&quot; service(s)</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Rerender even without change<ul>
+<li>Rendering issues covered separately</li>
+</ul>
+</li>
+<li>Lots of network overhead (all messages)<ul>
+<li>What if big data?</li>
+<li>What if pagination?</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="polling-medium" class="slide" data-has-notes="false">
+<h1>Medium Complexity Option</h1><ul>
+<li>Poll a &quot;are there new messages&quot; service<ul>
+<li>Use results (one of, your choice:)<ul>
+<li>Display an indicator to refresh</li>
+<li>OR, Request message list and rerender</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Requires a &quot;new messages check&quot; service<ul>
+<li>Requires a way to identify new messages!<ul>
+<li>Messages get ids?</li>
+<li>Timestamp?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="polling-medium-pro-con" class="slide" data-has-notes="false">
+<h1>New Message Check Benefits/Costs</h1><ul>
+<li>Separates complexity of IF new messages<ul>
+<li>from HANDLING of new messages</li>
+</ul>
+</li>
+<li>New Service<ul>
+<li>New functionality to offer client flexibility!</li>
+<li>New commitment to client devs!</li>
+<li>New maintenance costs!</li>
+</ul>
+</li>
+<li>If client always requests new messages<ul>
+<li>Why force another service call?</li>
+<li>&quot;If&quot; is a real question - differs between apps!</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="polling-advanced" class="slide" data-has-notes="false">
+<h1>Advanced Messages Option</h1><ul>
+<li>Poll a &quot;get new messages&quot; service</li>
+<li>Same requirement to identify new messages</li>
+<li>Returns only new messages</li>
+<li>Can be same service as &quot;get all messages&quot;<ul>
+<li>With optional param<ul>
+<li>indicates most recent known message</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="polling-advanced-pro-con" class="slide" data-has-notes="false">
+<h1>Advanced Get Messages Pro vs Con</h1><ul>
+<li>No new services, just new features<ul>
+<li>Fewer services == controlled commitments</li>
+<li>More complex services == more complex code</li>
+</ul>
+</li>
+<li>Adds flexibility for clients</li>
+<li>Reduces unnecessary service calls</li>
+</ul>
+</section>
+
+<section id="polling-active-users" class="slide" data-has-notes="false">
+<h1>Polling Active Users</h1><p>What about changes in active users?</p>
+<ul>
+<li>In same service as messages?<ul>
+<li>See previous discussion</li>
+</ul>
+</li>
+<li>Similar, separate service for users vs messages?<ul>
+<li>Double the polling?</li>
+</ul>
+</li>
+<li>Clients refresh users when new messages?<ul>
+<li>Reasonable(?)</li>
+<li>Clients may want more</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-rendering" class="chapter">
+<section id="rendering-overview" class="slide" data-has-notes="false">
+<h1>Rendering Results of Polling</h1><p>Surprising issues!</p>
+<ul>
+<li>Showing newest messages?<ul>
+<li>Scrolling is complicated</li>
+</ul>
+</li>
+<li>Auto-rendering can interrupt</li>
+</ul>
+</section>
+
+<section id="rendering-newest-messasges" class="slide" data-has-notes="false">
+<h1>Showing Newest Messages</h1><p>How to show newest messages if too many for screen?</p>
+<ul>
+<li>Option 1: New messages on top<ul>
+<li>Clever &quot;cheat&quot;</li>
+<li>Can&#39;t always do so<ul>
+<li>&quot;Later&quot; usually below &quot;Earlier&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Option 2: Scroll to bottom<ul>
+<li>Scrolling is complex!</li>
+<li>Takes time and testing!</li>
+<li>Keep Accessibility in mind<ul>
+<li>Research!</li>
+<li>&quot;Works for me&quot; isn&#39;t enough</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="rendering-interruption" class="slide" data-has-notes="false">
+<h1>Rendering can interrupt</h1><ul>
+<li>We replace most/all of the HTML on rerender<ul>
+<li>Including form elements!<ul>
+<li>Even mid-typing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Not what you&#39;d want for a real project</li>
+</ul>
+</section>
+
+<section id="rendering-avoiding-interruption" class="slide" data-has-notes="false">
+<h1>Avoiding Interruption</h1><ul>
+<li>Solution is doable, but lots of details<ul>
+<li>Need to be more nuanced in replacing HTML<ul>
+<li>We will let React do that for us</li>
+<li>But you know enough to do it without!<ul>
+<li>Detailed</li>
+<li>Time-consuming to write/test</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+<section id="chapter-estimation" class="chapter">
+<section id="estimation-overview" class="slide" data-has-notes="false">
+<h1>Estimation</h1><ul>
+<li>I got a LOT of requests for extension</li>
+<li>Some of you have had many extensions<ul>
+<li>Point is to prepare for working</li>
+<li>Normal to occasionally be behind</li>
+<li>Not good to always need more time</li>
+<li>Not good to notice too late to matter</li>
+<li>Workplaces often change non-deadline parts<ul>
+<li>You need time to make changes</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="estimation-learning" class="slide" data-has-notes="false">
+<h1>Are you learning from Estimation Problems?</h1><p>I&#39;m gracious and kind (and humble!)</p>
+<ul>
+<li>Teams, clients, managers may not be</li>
+<li>Other Instructors may not be</li>
+</ul>
+<p>Learn from my generosity so you don&#39;t need theirs</p>
+<p><strong>Final Project has NO non-emergency extensions</strong></p>
+</section>
+
+<section id="estimation-final" class="slide" data-has-notes="false">
+<h1>Repeat: NO EXTENSIONS FOR FINAL PROJECT</h1><ul>
+<li>I have ~200 students to review, projects + more</li>
+<li>I get no extension</li>
+<li>After deadline I lose ability to enter/alter grades</li>
+<li>Requires paperwork and approval of my Director</li>
+</ul>
+<p><strong>Finish your project EARLY, have buffer time if anything goes wrong!</strong></p>
+<ul>
+<li>Power outages</li>
+<li>Computer failure</li>
+<li>Sick Pets</li>
+<li>Illness</li>
+</ul>
+</section>
+</section></div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: Reveal.getQueryHash().transition || 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [
+        //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+    </script>
+
+    <script src="js/dynamic-theme.js"></script><script src="js/custom.js"></script>
+
+  </body>
+</html>
