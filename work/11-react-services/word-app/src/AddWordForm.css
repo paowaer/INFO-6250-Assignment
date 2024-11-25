@@ -1,0 +1,26 @@
+.add__form {
+  display: flex;
+  margin-top: 15px;
+}
+
+.add__task {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+.add__button {
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.add__button:hover {
+  background-color: #0056b3;
+}

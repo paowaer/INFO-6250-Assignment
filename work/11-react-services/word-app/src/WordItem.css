@@ -1,0 +1,21 @@
+.word__text {
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.word__text--complete {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.word__delete {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.word__delete:hover {
+  color: #ff4b4b;
+}
