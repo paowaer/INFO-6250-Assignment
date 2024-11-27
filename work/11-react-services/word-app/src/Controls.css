@@ -1,0 +1,32 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.controls__refresh,
+.controls__logout {
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controls__refresh {
+  background-color: #28a745;
+  color: white;
+}
+
+.controls__refresh:hover {
+  background-color: #218838;
+}
+
+.controls__logout {
+  background-color: #dc3545;
+  color: white;
+}
+
+.controls__logout:hover {
+  background-color: #c82333;
+}
