@@ -1,0 +1,36 @@
+.profile {
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: #edf2f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile h2 {
+  color: #4a4e69;
+}
+
+.profile-info p {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.reservations {
+  margin-top: 20px;
+}
+
+.reservation-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.cancel-btn {
+  background-color: #ba181b;
+  color: #fff;
+  border-radius: 5px;
+}

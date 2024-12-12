@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+header button {
+  margin-left: 10px;
+  background: orange;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background: #f1f1f1;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.status {
+  background: #ffe0e0;
+  color: red;
+  text-align: center;
+  padding: 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.message-tip {
+  background: rgba(10, 83, 49, 0.7);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+}

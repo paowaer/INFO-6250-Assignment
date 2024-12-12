@@ -1,0 +1,36 @@
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #edf2f4;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-field {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #386fa4;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.btn-register-link {
+  background-color: #439d5a;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.login-prompt {
+  text-align: center;
+}
